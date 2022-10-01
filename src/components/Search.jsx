@@ -53,7 +53,7 @@ const Search = () => {
   useEffect(()=>{
     if(option==='show') setPlaceholder("e.g. Friends")
     else if(option === 'actor') setPlaceholder("e.g. Dwayne Johnson")
-    else setPlaceholder("select a option to search")
+    else setPlaceholder("select an option to search")
   },[option])
 
 
