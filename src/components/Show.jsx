@@ -6,9 +6,9 @@ export default function Show({ data }) {
     <>
       {/* {console.log(data)} */}
       <div className="container">
-          {data.map((d) => {
+          {data.map((d,index) => {
             return (
-              <div className="card">
+              <div className="card" key={index}>
                 <div className="card-image">
                 <a href={d?.show?.url} target='_akash'>
                     <img src={d?.show?.image?.medium}  />

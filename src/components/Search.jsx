@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import '../App.css'
 import Show from './Show'
 import Actor from './Actor'
+import Def from './Def'
 
 const Search = () => {
 
@@ -10,11 +11,14 @@ const Search = () => {
   const [input, setInput] = useState('')
   const [actorData, setActorData] = useState([])
   const [showData, setShowData] = useState([])
-  const [placeholder,setPlaceholder] = useState("select a option to search");
+  const [placeholder, setPlaceholder] = useState("select a option to search");
+
 
 
   useEffect(() => {
-    if (option === "actor") {
+    
+     if (option === "actor") {
+      if (input !== "")
       fetch(`https://api.tvmaze.com/search/people?q=${input}`)
         .then((result) => {
           result.json()
@@ -24,7 +28,7 @@ const Search = () => {
         }
         );
       // console.log(actorData)
-    } else {
+    } else if(option === 'show'){
       if (input !== "") {
         fetch(`https://api.tvmaze.com/search/shows?q=${input}`).then(
           (result) => {
@@ -44,11 +48,8 @@ const Search = () => {
     setInput('')
     setActorData([])
     setShowData([])
-    if(option==='show') setPlaceholder("Enter the show name e.g. Friends")
-    else if(option === 'actor') setPlaceholder("Enter the actor name e.g. Dwayne Johnson")
-    else setPlaceholder("select a option to search")
-
   };
+
   useEffect(()=>{
     if(option==='show') setPlaceholder("e.g. Friends")
     else if(option === 'actor') setPlaceholder("e.g. Dwayne Johnson")
@@ -71,7 +72,7 @@ const Search = () => {
           value={input}
           placeholder={placeholder}
           onChange={(e) => {
-            // console.log(option)
+
             option === 'show' || option === 'actor' ?
               setInput(e.target.value)
               :
@@ -81,6 +82,7 @@ const Search = () => {
       </div>
       {option === "actor" && input !== "" ? actorData.length !== 0 ? <Actor data={actorData} /> : <h3 className="noData">Results for '{input}' not found</h3> : ""}
       {option === "show" && input !== "" ? showData.length !== 0 ? <Show data={showData} /> : <h3 className="noData">Results for '{input}' not found</h3> : ""}
+      {option !== "show"  && option !== "actor" ? <Def /> : ""}
     </>
   )
 }
